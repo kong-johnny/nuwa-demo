@@ -1,0 +1,40 @@
+<view class="screen {{v.cover?'cover':''}}">
+ <image class="backdrop" src="/assets/painting.jpg" mode="aspectFill"/>
+ <view class="veil"></view>
+ <view class="topbar"><button class="icon-button" bindtap="back" disabled="{{v.index===0}}" aria-label="返回上一页">‹</button><text class="brand">神韵山海 <text class="brand-dot">·</text> 女娲篇</text><button class="icon-button reset" bindtap="restart" aria-label="重新开始">↺</button></view>
+ <view class="progress"><view style="width:{{v.progress}}%"></view></view>
+ <view class="cover-content" wx:if="{{v.cover}}"><view class="eyebrow">山海绘卷 · 互动神话</view><view class="cover-title">神韵山海</view><view class="cover-sub">女 娲 篇</view><view class="seal">创造 · 守护</view><view class="cover-caption">捏一抔黄土，点亮万家灯火。<br/>拾一枚彩石，守护一方山河。</view></view>
+ <view class="content" wx:else>
+  <view class="heading"><view class="eyebrow">{{v.child?'壹 · 创造生命':v.id==='G2_01'||v.id==='G2_02'?'贰 · 古籍解谜':v.id==='S13'?'叁 · 神话瞬间':'女娲的神话画卷'}}<text class="counter">{{v.index+1}} / 21</text></view><view class="title">{{v.title}}</view></view>
+  <scroll-view class="reading" scroll-y="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}" scroll-top="{{0}}">
+   <view class="scene-art {{v.child?'has-child':''}} {{shaking?'shaking':''}}" wx:if="{{v.id!=='S04' && v.id!=='G2_01' && v.id!=='S13' && v.id!=='S14'}}" bindtap="shake">
+    <image wx:if="{{!v.child}}" class="art" src="/assets/painting.jpg" mode="aspectFill"/>
+    <view wx:if="{{v.child}}" class="child {{v.head}} {{v.color}}"><image class="child-body" src="/assets/child.png" mode="aspectFit"/><image class="child-head" src="/assets/child.png" mode="aspectFit"/></view>
+    <text class="art-note">{{v.child?v.wish:v.id==='S08'?'四极废，九州裂 · 点击感受天裂':'中国神话 · 原创画面演绎'}}</text>
+   </view>
+   <view class="narrator">{{v.narrator}}</view>
+   <view class="age-hint" wx:if="{{v.age}}">{{v.hintText}}</view>
+   <view class="choices {{v.child || v.id==='S13'?'compact':''}}" wx:if="{{v.options.length && !(v.id==='S13' && v.poster)}}"><button wx:for="{{v.options}}" wx:key="key" class="choice {{item.active?'selected':''}}" bindtap="pick" data-key="{{item.key}}"><text class="choice-label">{{item.label}}</text><text class="choice-sub" wx:if="{{item.sub}}">{{item.sub}}</text><text class="tick" wx:if="{{item.active}}">✓</text></button></view>
+   <view class="feedback" wx:if="{{v.feedback}}">{{v.feedback}}</view>
+   <view wx:if="{{v.id==='S04'}}" class="books-wrap">
+    <view class="book-guide">左右滑动古籍 · 已读 {{v.bookCount}} / 3</view>
+    <swiper class="books" current="{{bookIndex}}" bindchange="bookChange" indicator-dots="{{true}}" indicator-active-color="#a86c38" previous-margin="14px" next-margin="14px">
+     <swiper-item wx:for="{{v.books}}" wx:key="id"><view class="book"><view class="book-number">古籍摘读 · {{index+1}} <text wx:if="{{item.read}}">✓ 已读</text></view><view class="book-title">《{{item.title}}》</view><view class="source">{{item.source}}</view><view wx:if="{{bookOpen && bookIndex===index}}"><view class="quote">{{item.quote}}</view><view class="meaning">{{item.meaning}}</view></view><view wx:else class="book-decoration">卷</view><button class="book-toggle" bindtap="toggleBook">{{bookOpen && bookIndex===index?'收起原文':'展开 · 查看原文'}}</button></view></swiper-item>
+    </swiper><view class="footnote">三条材料各有来源，并非造人、补天的连续章节。原文使用简体字与现代标点。</view>
+   </view>
+   <view wx:if="{{v.id==='G1_04'}}"><view class="badge">✦ 造人小匠</view><input class="input" maxlength="16" value="{{v.name}}" bindinput="nameInput" placeholder="给小伙伴起个名字（可跳过）"/><button class="text-button" bindtap="openChat">与云启聊聊</button></view>
+   <view wx:if="{{v.id==='G2_01'}}" class="sort-game"><view class="slots"><button wx:for="{{v.slots}}" wx:key="pos" class="slot {{item.filled?'filled':''}}" bindtap="undo" data-pos="{{item.pos}}"><text class="slot-number">{{item.pos+1}}</text>{{item.label}}<text wx:if="{{item.filled}}" class="remove">×</text></button></view><view class="task-bank"><button wx:for="{{v.tasks}}" wx:key="key" class="task" disabled="{{item.used}}" bindtap="task" data-key="{{item.key}}">{{item.label}}</button></view><view class="row"><button class="text-button" bindtap="clear">清空重排</button><button class="text-button" bindtap="hint">看提示</button></view><view class="feedback" wx:if="{{v.hint}}">{{v.attempts>=3?v.original:'原文开头：炼五色石，以补苍天。'}}<view>排的是古籍文字的叙述次序。</view></view><button wx:if="{{v.attempts>=3}}" class="secondary" bindtap="solve">查看原文顺序并填入</button></view>
+   <view wx:if="{{v.id==='G2_02'}}"><view class="badge">✦ 神话整理师</view><view class="feedback">{{v.original}}</view></view>
+   <view wx:if="{{v.id==='S11'||v.id==='S12'}}" class="badges"><text wx:if="{{v.game1}}">✦ 造人小匠</text><text wx:if="{{v.game2}}">✦ 神话整理师</text></view>
+   <button wx:if="{{v.id==='S12'}}" class="text-button" bindtap="review">再看故事 · 保留作品</button>
+   <view wx:if="{{v.id==='S13'}}">
+    <view wx:if="{{!v.poster}}"><textarea class="description" value="{{v.description}}" bindinput="descriptionInput" maxlength="120" placeholder="用自己的话，描述你心中的神话画面……"/><view class="char-count">{{v.description.length}} / 120 · 建议 10—120 字</view><button class="text-button" bindtap="useTemplate" disabled="{{!v.moment}}">试用这幕的描述例句</button><view class="demo-note">生图服务尚未接入。下面将打开项目提供的“女娲补天”示例，不根据输入实时绘图。</view><button class="secondary" bindtap="sample">查看示例海报（演示模式）</button></view>
+    <view wx:else><image class="poster" src="/assets/painting.jpg" mode="aspectFit" bindtap="preview"/><view class="demo-note">示例图，并非本次实时生成<br/>本次旅程保留同一张示例海报。</view><button class="secondary" bindtap="savePoster">保存示例海报</button></view>
+   </view>
+   <view wx:if="{{v.id==='S14'}}"><view class="badge">✦ 三项体验已完成</view><image class="end-poster" src="/assets/painting.jpg" mode="aspectFit"/><view class="comic-grid"><view>壹 · 开端</view><view>贰 · 困难</view><view>叁 · 行动</view><view>肆 · 结局</view></view><button class="secondary" disabled="{{true}}">四格漫画工具 · 暂未接入</button><view class="footnote">四格漫画是选做拓展。未配置外部工具，不影响本次通关。海报为演示示例。</view></view>
+   <view class="scroll-bottom"></view>
+  </scroll-view>
+ </view>
+ <view class="bottom"><view class="notice" wx:if="{{notice}}">{{notice}}</view><button class="primary" disabled="{{!v.ready}}" bindtap="next">{{v.button}} <text>→</text></button><view class="bottom-line"><text class="saved">{{v.cover?'创造生命 · 守护世界':'进度保存在本机'}}</text><button class="tutor-entry" bindtap="openChat"><view><text>AI助教 · 云启</text><text class="tutor-caption">点我聊一聊</text></view><image src="/assets/tutor.jpg" mode="aspectFill"/></button></view></view>
+ <view class="overlay" wx:if="{{chat}}" bindtap="closeChat"><view class="chat-panel" catchtap="noop"><view class="chat-header"><image src="/assets/tutor.jpg" mode="aspectFill"/><view><view class="chat-name">云启</view><view class="source">你的山海同行人</view></view><button class="icon-button" bindtap="closeChat">×</button></view><view class="demo-note">演示对话 · 外接 AI 接口待接入</view><button class="question" bindtap="ask">你是谁？</button><view class="answer" wx:if="{{answered}}">我是你的助教云启，跟我一起探索神话世界吧。</view><view wx:else class="chat-empty">点击上方问题，和云启打个招呼吧。</view><button class="secondary" bindtap="closeChat">收起对话 · 继续故事</button></view></view>
+</view>

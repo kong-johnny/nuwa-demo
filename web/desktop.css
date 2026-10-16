@@ -1,0 +1,399 @@
+/* 桌面端适配层：鼠标悬停、键盘焦点、宽屏布局、滚动条。
+   仅在 web 版加载，不影响微信小程序原生样式。 */
+
+/* ---- 键盘可达性：焦点环 ---- */
+button:focus-visible,
+.choice:focus-visible,
+.task:focus-visible,
+.slot:focus-visible,
+.text-button:focus-visible,
+.tutor-entry:focus-visible,
+.book-toggle:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #8a6a34;
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* ---- 触屏兜底：按下即有反馈 ---- */
+@media (hover: none) {
+  .choice:active,
+  .task:active,
+  .slot:active {
+    background: #efe6d0;
+  }
+  .primary:active:not([disabled]) {
+    transform: scale(.99);
+  }
+}
+
+/* ---- 宽屏：更大的画布与字号 ---- */
+@media (min-width: 600px) {
+  #app {
+    max-width: 470px;
+  }
+  .reading {
+    scrollbar-width: thin;
+    scrollbar-color: #c4b494 transparent;
+  }
+  .reading::-webkit-scrollbar {
+    width: 8px;
+  }
+  .reading::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .reading::-webkit-scrollbar-thumb {
+    background: #c4b494;
+    border-radius: 4px;
+    border: 2px solid #f6eddb;
+  }
+  .reading::-webkit-scrollbar-thumb:hover {
+    background: #a9916a;
+  }
+  .books {
+    scrollbar-width: thin;
+    scrollbar-color: #c4b494 transparent;
+    cursor: grab;
+  }
+  .books.dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+  .books::-webkit-scrollbar {
+    height: 8px;
+  }
+  .books::-webkit-scrollbar-thumb {
+    background: #c4b494;
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 900px) {
+  #app {
+    max-width: 520px;
+  }
+  .cover-title {
+    font-size: 60px;
+    letter-spacing: 10px;
+  }
+  .cover-sub {
+    font-size: 23px;
+  }
+  .cover-caption {
+    font-size: 15px;
+  }
+  .title {
+    font-size: 28px;
+  }
+  .narrator {
+    font-size: 15px;
+    line-height: 2;
+  }
+  .scene-art {
+    height: 205px;
+  }
+  .choice {
+    min-height: 58px;
+  }
+  .choices {
+    gap: 10px;
+  }
+  .task-bank {
+    gap: 9px;
+  }
+  .task {
+    min-height: 62px;
+    font-size: 13px;
+  }
+  .books {
+    height: 368px;
+  }
+  .book {
+    height: 334px;
+  }
+  .quote {
+    font-size: 19px;
+  }
+  .meaning {
+    font-size: 13px;
+  }
+  .poster {
+    height: 400px;
+  }
+  .end-poster {
+    height: 240px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #app {
+    max-width: 560px;
+  }
+}
+
+/* ---- 指针设备：悬停反馈 ---- */
+@media (hover: hover) and (pointer: fine) {
+  .choice,
+  .task,
+  .slot,
+  .primary,
+  .secondary,
+  .icon-button,
+  .text-button,
+  .question,
+  .book-toggle,
+  .tutor-entry {
+    transition: background-color .16s ease, border-color .16s ease,
+      color .16s ease, transform .16s ease, box-shadow .16s ease;
+  }
+  .choice:hover:not(.selected) {
+    border-color: #ab8c58;
+    background: #fffaeb;
+    transform: translateX(3px);
+  }
+  .choice:hover:not(.selected) .choice-label {
+    color: #22403a;
+  }
+  .choice.selected:hover {
+    border-color: #2f5b50;
+    background: #d7e2d2;
+  }
+  .primary:hover:not([disabled]) {
+    background: #31605a;
+    box-shadow: 0 7px 20px #203d3640;
+  }
+  .primary:active:not([disabled]) {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px #203d3633;
+  }
+  .cover .primary:hover:not([disabled]) {
+    background: #f2d9a4;
+  }
+  .secondary:hover:not([disabled]) {
+    background: #f1e7d2;
+    border-color: #bda374;
+  }
+  .icon-button:hover:not([disabled]) {
+    background: #d9ceaf;
+    color: #22403a;
+    border-radius: 50%;
+  }
+  .cover .icon-button:hover:not([disabled]) {
+    background: #ffffff2b;
+    color: #fff4d6;
+  }
+  .icon-button:active:not([disabled]) {
+    transform: scale(.94);
+  }
+  .task:hover:not([disabled]) {
+    border-color: #a98a51;
+    background: #fff4d8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px #6a5a3320;
+  }
+  .task[disabled] {
+    cursor: not-allowed;
+    opacity: .45;
+  }
+  .slot:hover {
+    border-color: #8ea893;
+    background: #e5eadf;
+    color: #3c5a48;
+  }
+  .text-button:hover {
+    color: #2c5347;
+    background: #00000008;
+  }
+  .book-toggle:hover {
+    color: #6a4520;
+  }
+  .question:hover {
+    background: #3c6f5f;
+  }
+  .tutor-entry:hover img {
+    transform: scale(1.07);
+    box-shadow: 0 6px 18px #483b2644;
+  }
+  .tutor-entry:hover .tutor-caption {
+    color: #6b5840;
+  }
+  .scene-art:hover .art-note {
+    background: linear-gradient(transparent, rgba(20, 40, 35, .93));
+  }
+  .scene-art {
+    cursor: pointer;
+  }
+  #app .overlay {
+    cursor: pointer;
+  }
+  #app .chat-panel {
+    cursor: default;
+  }
+}
+
+/* ---- 键盘提示条 ---- */
+.key-hints {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -30px;
+  gap: 14px;
+  font-size: 11px;
+  color: #9db0a5;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.key-hints kbd {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 5px;
+  margin-right: 3px;
+  font-family: inherit;
+  font-size: 10px;
+  color: #d6e2d8;
+  background: #2b4a43;
+  border: 1px solid #4d6f66;
+  border-radius: 4px;
+  text-align: center;
+}
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  .key-hints {
+    display: flex;
+  }
+}
+
+/* ---- 减少动态效果 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .choice,
+  .task,
+  .slot,
+  .primary,
+  .secondary,
+  .icon-button,
+  .text-button,
+  .question,
+  .book-toggle,
+  .tutor-entry,
+  .tutor-entry img {
+    transition: none !important;
+  }
+  .choice:hover:not(.selected),
+  .task:hover:not([disabled]),
+  .icon-button:active:not([disabled]) {
+    transform: none !important;
+  }
+}
+
+/* ---- 轻提示 ---- */
+.dsk-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 76px;
+  transform: translate(-50%, 14px);
+  max-width: min(84vw, 420px);
+  padding: 11px 20px;
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: .5px;
+  color: #fff6e2;
+  background: rgba(30, 54, 47, .93);
+  border: 1px solid #4d6f66;
+  border-radius: 22px;
+  box-shadow: 0 8px 26px rgba(18, 34, 30, .32);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  z-index: 60;
+}
+.dsk-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---- 确认弹窗 ---- */
+.dsk-modal-mask {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(18, 40, 35, .46);
+  z-index: 70;
+  animation: dsk-fade .18s ease;
+}
+.dsk-modal {
+  width: min(100%, 340px);
+  background: #fbf3e3;
+  border: 1px solid #cdb68b;
+  border-radius: 16px;
+  box-shadow: 0 18px 54px rgba(16, 32, 28, .34);
+  overflow: hidden;
+  animation: dsk-pop .2s cubic-bezier(.2, .9, .3, 1.2);
+}
+.dsk-modal-title {
+  padding: 20px 22px 6px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #2c463f;
+  text-align: center;
+}
+.dsk-modal-body {
+  padding: 4px 22px 18px;
+  font-size: 13px;
+  line-height: 1.85;
+  color: #6d6450;
+  text-align: center;
+}
+.dsk-modal-actions {
+  display: flex;
+  border-top: 1px solid #e2d5b9;
+}
+.dsk-btn {
+  flex: 1;
+  min-height: 46px;
+  padding: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+.dsk-btn + .dsk-btn {
+  border-left: 1px solid #e2d5b9;
+}
+.dsk-btn-ghost {
+  color: #7d7360;
+}
+.dsk-btn-solid {
+  color: #fff7df;
+  background: #2f5b50;
+  font-weight: 600;
+}
+.dsk-btn-solid:hover {
+  background: #386a5e;
+}
+.dsk-btn-ghost:hover {
+  background: #f0e6d2;
+}
+.dsk-btn:focus-visible {
+  outline: 2px solid #8a6a34;
+  outline-offset: -3px;
+}
+@keyframes dsk-fade {
+  from { opacity: 0; }
+}
+@keyframes dsk-pop {
+  from { opacity: 0; transform: scale(.94) translateY(8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dsk-toast, .dsk-modal-mask, .dsk-modal { animation: none !important; transition: none !important; }
+}

@@ -397,3 +397,12 @@ textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .dsk-toast, .dsk-modal-mask, .dsk-modal { animation: none !important; transition: none !important; }
 }
+
+/* ---- 修正：封面题词绝对定位缺少左锚点，窄屏下溢出导致横向滚动 ---- */
+.cover-caption {
+  left: 0;
+  width: 100%;
+}
+html, body {
+  overflow-x: hidden;
+}

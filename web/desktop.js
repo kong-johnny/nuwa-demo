@@ -121,12 +121,18 @@
     if (q('.dsk-modal-mask')) return;   // 弹窗打开时交给弹窗自己处理
 
     if (e.key === 'Escape') {
+      if (q('.exhibit-overlay')) {
+        e.preventDefault();
+        clickIf(q('.exhibit-panel .icon-button'));
+        return;
+      }
       if (q('.overlay')) {
         e.preventDefault();
         if (!clickIf(q('.chat-panel .icon-button'))) { var ov = q('.overlay'); if (ov) ov.click(); }
       }
       return;
     }
+    if (q('.exhibit-overlay') || q('.overlay')) return;
     if (isTyping(e.target)) return;
 
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {

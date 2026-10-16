@@ -1,7 +1,7 @@
 const E=require('../../lib/engine');
 const KEY='nuwa-demo-v1';
 Page({
- data:{v:{},chat:false,answered:false,notice:'',bookIndex:0,bookOpen:false,shaking:false},
+ data:{v:{},chat:false,answered:false,notice:'',bookIndex:0,bookOpen:false,shaking:false,mapScale:1,mapBase:350,exhibit:null},
  onLoad(){try{this.state=E.restore(wx.getStorageSync(KEY));}catch(e){this.state=E.fresh();}this.refresh();},
  refresh(){this.setData({v:E.model(this.state)});try{wx.setStorageSync(KEY,this.state);}catch(e){this.setData({notice:'本机空间不足，进度暂时无法保存。'});}},
  pick(e){if(this.state.poster&&E.FLOW[this.state.index]==='S13')return;E.choose(this.state,String(e.currentTarget.dataset.key));this.setData({notice:''});this.refresh();},
@@ -18,10 +18,15 @@ Page({
  descriptionInput(e){this.state.description=e.detail.value.slice(0,120);this.refresh();},
  useTemplate(){if(!this.state.poster){this.state.description=E.model(this.state).template;this.refresh();}},
  sample(){this.setData({notice:E.sample(this.state)});this.refresh();},
+ zoomIn(){this.setData({mapScale:Math.min(3,this.data.mapScale+.5)});},
+ zoomOut(){this.setData({mapScale:Math.max(1,this.data.mapScale-.5)});},
+ inspect(e){const id=e.currentTarget.dataset.key;const item=this.data.v.exhibits.find(a=>a.id===id);if(!item)return;if(!this.state.seen.includes(id))this.state.seen.push(id);this.setData({exhibit:item});this.refresh();},
+ closeExhibit(){this.setData({exhibit:null});},
+ turnBook(e){const step=Number(e.currentTarget.dataset.step);this.setData({bookIndex:(this.data.bookIndex+step+3)%3,bookOpen:false});},
  openChat(){this.setData({chat:true});},closeChat(){this.setData({chat:false});},ask(){this.setData({answered:true});},noop(){},
  shake(){if(E.FLOW[this.state.index]==='S08'){this.setData({shaking:true});setTimeout(()=>this.setData({shaking:false}),500);}},
  preview(){wx.previewImage({urls:['/assets/painting.jpg']});},
  savePoster(){wx.getImageInfo({src:'/assets/painting.jpg',success:r=>wx.saveImageToPhotosAlbum({filePath:r.path,success:()=>wx.showToast({title:'示例海报已保存'}),fail:()=>wx.showModal({title:'未能保存到相册',content:'可点击海报进入预览后长按保存；也可在微信设置中检查相册权限。',showCancel:false})}),fail:()=>wx.showToast({title:'图片读取失败',icon:'none'})});},
- restart(){wx.showModal({title:'重新开始旅行？',content:'将清除本机的本次进度、人物选择和示例海报记录。',success:r=>{if(r.confirm){this.state=E.fresh();this.setData({notice:'',bookIndex:0,bookOpen:false,chat:false});this.refresh();}}});},
+ restart(){wx.showModal({title:'重新开始旅行？',content:'将清除本机的本次进度、人物选择和示例海报记录。',success:r=>{if(r.confirm){this.state=E.fresh();this.setData({notice:'',bookIndex:0,bookOpen:false,chat:false,exhibit:null});this.refresh();}}});},
  review(){this.state.index=2;this.setData({notice:''});this.refresh();}
 });

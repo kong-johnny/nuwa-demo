@@ -3,7 +3,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({headless:true,channel:'chrome'});for(const width of [320,390,1440]){
 const page=await browser.newPage({viewport:{width,height:width===1440?1000:844},isMobile:width<600,hasTouch:width<600});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('http://localhost:8080/web/');
-await page.locator('.primary').click();await page.locator('.choice').nth(1).click();await page.locator('.primary').click();await page.locator('.primary').click();await page.locator('.choice').nth(1).click();await page.locator('.primary').click();
+await page.locator('.primary').click();await page.locator('.choice').nth(1).click();await page.locator('.primary').click();await page.locator('.primary').click();await page.locator('.primary').click();await page.locator('.choice').nth(1).click();await page.locator('.primary').click();
 assert.equal(await page.evaluate(()=>demoPage.data.v.id),'S04');
 for(let i=0;i<3;i++) {await page.locator('.book-toggle').nth(i).click();await page.waitForTimeout(400);assert.equal(await page.evaluate(()=>demoPage.data.v.bookCount),i+1);assert.equal(await page.evaluate(()=>demoPage.data.bookOpen),true);if(i<2)await page.getByRole('button',{name:'下一卷 →',exact:true}).click();}
 assert.equal(await page.locator('.primary').isEnabled(),true);

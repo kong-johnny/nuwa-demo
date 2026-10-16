@@ -308,3 +308,8 @@ kbd {
   .btn-primary, .btn-primary .arrow, .card, .nav a { transition: none !important; }
   .btn-primary:hover, .card:hover { transform: none !important; }
 }
+
+/* Match the game's warm paper and jade palette. */
+.card, .device { box-shadow: 0 10px 30px #081c2020; border-radius: 16px; }
+a:focus-visible, button:focus-visible { outline: 3px solid #bb9258; outline-offset: 5px; }
+@media (max-width: 360px) { h1 { overflow-wrap: anywhere; } }

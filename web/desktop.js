@@ -133,7 +133,7 @@
       var books = q('.books');
       if (books && books.contains(document.activeElement)) {
         e.preventDefault();
-        books.scrollBy({ left: (e.key === 'ArrowRight' ? 1 : -1) * books.clientWidth * 0.94, behavior: 'smooth' });
+        books.scrollBy({ left: (e.key === 'ArrowRight' ? 1 : -1) * books.clientWidth, behavior: 'smooth' });
         return;
       }
       e.preventDefault();
@@ -197,7 +197,7 @@
     if (!d.moved) return;
     justDragged = true;
     setTimeout(function () { justDragged = false; }, 80);
-    var page = d.el.clientWidth * 0.94;
+    var page = d.el.clientWidth;
     var idx = Math.max(0, Math.min(2, Math.round(d.el.scrollLeft / page)));
     d.el.scrollTo({ left: idx * page, behavior: 'smooth' });
   }

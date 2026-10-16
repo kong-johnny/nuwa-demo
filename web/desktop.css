@@ -406,3 +406,29 @@ textarea:focus-visible {
 html, body {
   overflow-x: hidden;
 }
+
+/* A quiet paper surface, with consistent controls throughout the journey. */
+body { background: radial-gradient(ellipse at 20% 0%, #446157, transparent 65%), #172f2a; }
+.screen:not(.cover) { background: linear-gradient(145deg, #fff8e9, #f2e6ce); }
+.heading { border-bottom: 1px solid #b99b6233; margin-bottom: 12px; }
+.narrator { color: #334e43; }
+.choice { border-radius: 14px; box-shadow: 0 3px 12px #5c482508; }
+.choice.selected { background: #e2ebdc; box-shadow: inset 3px 0 #3d6c61, 0 4px 14px #284d4710; }
+.primary { border-radius: 14px; }
+.scene-art { box-shadow: 0 8px 24px #53452a15; }
+.badge { background: #fff8e6; }
+.input:focus, .description:focus { outline: 2px solid #6e8d76; outline-offset: 2px; }
+.books { height: auto; margin: 12px 0 0; padding: 0 0 12px; scroll-snap-type: x mandatory; overflow-y: hidden; }
+.swiper-item { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
+.book { height: auto; min-height: 335px; margin: 0 4px; padding: 22px 22px 16px; border-radius: 12px; display: flex; flex-direction: column; }
+.book-title { font-size: clamp(19px, 5vw, 24px); line-height: 1.5; }
+.book-decoration { flex: 1; margin: 12px 0; }
+.book-toggle { position: static; width: 100%; margin-top: auto; flex-shrink: 0; min-height: 46px; border: 1px solid #c9ad7b; background: #fff8e780; border-radius: 8px; }
+.meaning { margin-bottom: 18px; }
+.book-navigation { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+.book-navigation button { min-height: 44px; background: #eee2c9; color: #4b604b; border: 1px solid #d6c39c; font-size: 12px; padding: 0 12px; }
+.book-navigation span { font-size: 12px; color: #79623e; white-space: nowrap; }
+.book-navigation button:disabled { opacity: .4; }
+.book-guide { line-height: 1.8; padding: 9px; background: #eadbc140; border-radius: 8px; }
+.chat-panel { max-height: 90%; overflow-y: auto; }
+@media (max-width: 360px) { .screen { padding-left: 14px; padding-right: 14px; } .brand { letter-spacing: 1px; } .book { padding: 18px 16px 14px; } .book-navigation button { padding: 0 8px; } }

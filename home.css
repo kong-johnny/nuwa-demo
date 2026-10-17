@@ -28,7 +28,7 @@ body {
 .bg-art {
   position: fixed;
   inset: 0;
-  background: url("miniprogram/assets/painting.jpg") center 22% / cover no-repeat;
+  background: url("/home-art.jpg") center 22% / cover no-repeat;
   opacity: .16;
   z-index: 0;
 }

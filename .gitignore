@@ -22,3 +22,18 @@ build/
 
 # 小程序本地缓存
 miniprogram/miniprogram_npm/
+
+# Local AI backend runtime files
+.local-key
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+*.sqlite*
+generated/
+*.log
+*.pid
+tools/
+*-preview.png
+access-url.txt
